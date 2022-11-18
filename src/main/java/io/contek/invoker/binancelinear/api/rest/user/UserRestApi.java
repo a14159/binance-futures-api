@@ -16,6 +16,10 @@ public final class UserRestApi {
     this.context = context;
   }
 
+  public GetFeeRates getFeeRates() {
+    return new GetFeeRates(actor, context);
+  }
+
   public DeleteAllOpenOrders deleteAllOpenOrders() {
     return new DeleteAllOpenOrders(actor, context);
   }
