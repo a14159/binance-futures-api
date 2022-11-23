@@ -1,23 +1,24 @@
 package io.contek.invoker.binancelinear.api.common;
 
 import javax.annotation.concurrent.NotThreadSafe;
+import java.math.BigDecimal;
 
 @NotThreadSafe
 public class _AccountPosition {
 
   public String symbol;
-  public String initialMargin;
-  public String maintMargin;
-  public String unrealizedProfit;
-  public String positionInitialMargin;
-  public String openOrderInitialMargin;
-  public String leverage;
+  public BigDecimal initialMargin;
+  public BigDecimal maintMargin;
+  public BigDecimal unrealizedProfit;
+  public BigDecimal positionInitialMargin;
+  public BigDecimal openOrderInitialMargin;
+  public BigDecimal leverage;
   public Boolean isolated;
-  public String entryPrice;
-  public String maxNotional;
-  public String bidNotional;
-  public String askNotional;
+  public BigDecimal entryPrice;
+  public BigDecimal maxNotional;
+  public BigDecimal bidNotional;
+  public BigDecimal askNotional;
   public String positionSide;
-  public String positionAmt;
-  public Long updateTime;
+  public BigDecimal positionAmt;
+  public long updateTime;
 }
