@@ -18,8 +18,10 @@ import static io.contek.invoker.binancelinear.api.ApiFactory.RateLimits.ONE_REST
 @NotThreadSafe
 public final class GetTickerBookTicker extends MarketRestRequest<Response> {
 
+  private static final ImmutableList<TypedPermitRequest> ONE_SYMBOL_REQUIRED_QUOTA =
+          ImmutableList.of(IP_REST_REQUEST_RULE.forPermits(2));
   private static final ImmutableList<TypedPermitRequest> ALL_SYMBOLS_REQUIRED_QUOTA =
-      ImmutableList.of(IP_REST_REQUEST_RULE.forPermits(2));
+      ImmutableList.of(IP_REST_REQUEST_RULE.forPermits(5));
 
   private String symbol;
 
@@ -56,7 +58,7 @@ public final class GetTickerBookTicker extends MarketRestRequest<Response> {
   @Override
   protected ImmutableList<TypedPermitRequest> getRequiredQuotas() {
     if (symbol != null) {
-      return ONE_REST_REQUEST;
+      return ONE_SYMBOL_REQUIRED_QUOTA;
     }
     return ALL_SYMBOLS_REQUIRED_QUOTA;
   }
