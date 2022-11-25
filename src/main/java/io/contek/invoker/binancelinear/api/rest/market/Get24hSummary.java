@@ -1,0 +1,50 @@
+package io.contek.invoker.binancelinear.api.rest.market;
+
+import com.google.common.collect.ImmutableList;
+import io.contek.invoker.binancelinear.api.common._MiniTickerSummary;
+import io.contek.invoker.binancelinear.api.rest.market.Get24hSummary.Response;
+import io.contek.invoker.commons.actor.IActor;
+import io.contek.invoker.commons.actor.ratelimit.TypedPermitRequest;
+import io.contek.invoker.commons.rest.RestContext;
+import io.contek.invoker.commons.rest.RestParams;
+
+import javax.annotation.concurrent.NotThreadSafe;
+import java.util.ArrayList;
+
+import static io.contek.invoker.binancelinear.api.ApiFactory.RateLimits.IP_REST_REQUEST_RULE;
+
+@NotThreadSafe
+public final class Get24hSummary extends MarketRestRequest<Response> {
+
+  private static final ImmutableList<TypedPermitRequest> REQUIRED_QUOTA =
+      ImmutableList.of(IP_REST_REQUEST_RULE.forPermits(40));
+
+
+  Get24hSummary(IActor actor, RestContext context) {
+    super(actor, context);
+  }
+
+  @Override
+  protected Class<Response> getResponseType() {
+    return Response.class;
+  }
+
+  @Override
+  protected String getEndpointPath() {
+    return "/fapi/v1/ticker/24hr";
+  }
+
+  @Override
+  protected RestParams getParams() {
+    RestParams.Builder builder = RestParams.newBuilder();
+
+    return builder.build();
+  }
+
+  @Override
+  protected ImmutableList<TypedPermitRequest> getRequiredQuotas() {
+      return REQUIRED_QUOTA;
+  }
+
+  public static final class Response extends ArrayList<_MiniTickerSummary> {}
+}
