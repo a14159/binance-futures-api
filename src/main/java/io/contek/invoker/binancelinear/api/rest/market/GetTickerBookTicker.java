@@ -63,5 +63,5 @@ public final class GetTickerBookTicker extends MarketRestRequest<Response> {
   }
 
   @NotThreadSafe
-  public static final class Response extends ArrayList<_BookTicker> {}
+  public static final class Response extends _BookTicker {}
 }
