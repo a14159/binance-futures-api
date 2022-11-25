@@ -11,7 +11,6 @@ import io.contek.invoker.commons.rest.RestParams;
 
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
-
 import java.math.BigDecimal;
 
 import static com.google.common.base.Preconditions.checkNotNull;

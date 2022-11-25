@@ -13,7 +13,6 @@ import javax.annotation.concurrent.NotThreadSafe;
 import java.util.ArrayList;
 
 import static io.contek.invoker.binancelinear.api.ApiFactory.RateLimits.IP_REST_REQUEST_RULE;
-import static io.contek.invoker.binancelinear.api.ApiFactory.RateLimits.ONE_REST_REQUEST;
 
 @NotThreadSafe
 public final class GetTickerBookTicker extends MarketRestRequest<Response> {
