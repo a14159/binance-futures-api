@@ -1,24 +1,34 @@
 package io.contek.invoker.binancelinear.api.common;
 
 import javax.annotation.concurrent.NotThreadSafe;
+import java.math.BigDecimal;
 
 @NotThreadSafe
-public class _Order {
+public class _Order implements Cloneable {
 
   public String symbol;
-  public Long orderId;
+  public long orderId;
   public String clientOrderId;
-  public Double price;
-  public Double avgPrice;
-  public Double origQty;
-  public Double executedQty;
+  public BigDecimal price;
+  public BigDecimal avgPrice;
+  public BigDecimal origQty;
+  public BigDecimal executedQty;
   public String status;
   public String timeInForce;
   public String type;
-  public Boolean reduceOnly;
+  public boolean reduceOnly;
   public String side;
   public String positionSide;
-  public Double stopPrice;
-  public Long updateTime;
+  public BigDecimal stopPrice;
+  public long updateTime;
   public String workingType;
+
+  @Override
+  public Object clone() {
+    try {
+      return super.clone();
+    } catch (CloneNotSupportedException e) {
+      throw new RuntimeException(e);
+    }
+  }
 }

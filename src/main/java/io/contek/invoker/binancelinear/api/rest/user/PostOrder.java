@@ -12,6 +12,8 @@ import io.contek.invoker.commons.rest.RestParams;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
+import java.math.BigDecimal;
+
 import static com.google.common.base.Preconditions.checkNotNull;
 import static io.contek.invoker.binancelinear.api.ApiFactory.RateLimits.*;
 import static io.contek.invoker.commons.rest.RestMethod.POST;
@@ -30,16 +32,16 @@ public final class PostOrder extends UserRestRequest<Response> {
   private String positionSide;
   private String type;
   private String timeInForce;
-  private Double quantity;
-  private Boolean reduceOnly;
-  private Double price;
+  private BigDecimal quantity;
+  private boolean reduceOnly = false;
+  private BigDecimal price;
   private String newClientOrderId;
-  private String stopPrice;
-  private Boolean closePosition;
-  private Double activationPrice;
-  private Double callbackRate;
+  private BigDecimal stopPrice;
+  private boolean closePosition = false;
+  private BigDecimal activationPrice;
+  private BigDecimal callbackRate;
   private String workingType;
-  private Boolean priceProtect;
+  private boolean priceProtect;
   private String newOrderRespType;
 
   PostOrder(IActor actor, RestContext context) {
@@ -71,7 +73,7 @@ public final class PostOrder extends UserRestRequest<Response> {
     return this;
   }
 
-  public PostOrder setQuantity(@Nullable Double quantity) {
+  public PostOrder setQuantity(@Nullable BigDecimal quantity) {
     this.quantity = quantity;
     return this;
   }
@@ -81,7 +83,7 @@ public final class PostOrder extends UserRestRequest<Response> {
     return this;
   }
 
-  public PostOrder setPrice(@Nullable Double price) {
+  public PostOrder setPrice(@Nullable BigDecimal price) {
     this.price = price;
     return this;
   }
@@ -91,7 +93,7 @@ public final class PostOrder extends UserRestRequest<Response> {
     return this;
   }
 
-  public PostOrder setStopPrice(@Nullable String stopPrice) {
+  public PostOrder setStopPrice(@Nullable BigDecimal stopPrice) {
     this.stopPrice = stopPrice;
     return this;
   }
@@ -101,12 +103,12 @@ public final class PostOrder extends UserRestRequest<Response> {
     return this;
   }
 
-  public PostOrder setActivationPrice(@Nullable Double activationPrice) {
+  public PostOrder setActivationPrice(@Nullable BigDecimal activationPrice) {
     this.activationPrice = activationPrice;
     return this;
   }
 
-  public PostOrder setCallbackRate(@Nullable Double callbackRate) {
+  public PostOrder setCallbackRate(@Nullable BigDecimal callbackRate) {
     this.callbackRate = callbackRate;
     return this;
   }
@@ -155,15 +157,15 @@ public final class PostOrder extends UserRestRequest<Response> {
     builder.add("type", type);
 
     if (quantity != null) {
-      builder.add("quantity", quantity);
+      builder.add("quantity", quantity.toPlainString());
     }
 
-    if (reduceOnly != null) {
+    if (reduceOnly) {
       builder.add("reduceOnly", reduceOnly);
     }
 
     if (price != null) {
-      builder.add("price", price);
+      builder.add("price", price.toPlainString());
     }
 
     if (positionSide != null) {
@@ -179,26 +181,26 @@ public final class PostOrder extends UserRestRequest<Response> {
     }
 
     if (stopPrice != null) {
-      builder.add("stopPrice", stopPrice);
+      builder.add("stopPrice", stopPrice.toPlainString());
     }
 
-    if (closePosition != null) {
+    if (closePosition) {
       builder.add("closePosition", closePosition);
     }
 
     if (activationPrice != null) {
-      builder.add("activationPrice", activationPrice);
+      builder.add("activationPrice", activationPrice.toPlainString());
     }
 
     if (callbackRate != null) {
-      builder.add("callbackRate", callbackRate);
+      builder.add("callbackRate", callbackRate.toPlainString());
     }
 
     if (workingType != null) {
       builder.add("workingType", workingType);
     }
 
-    if (priceProtect != null) {
+    if (priceProtect) {
       builder.add("priceProtect", priceProtect);
     }
 
