@@ -1,6 +1,7 @@
 package io.contek.invoker.binancelinear.api.rest.market;
 
 import com.google.common.collect.ImmutableList;
+import io.contek.invoker.binancelinear.api.common._MarketDetails;
 import io.contek.invoker.binancelinear.api.rest.market.GetExchangeInfo.Response;
 import io.contek.invoker.commons.actor.IActor;
 import io.contek.invoker.commons.actor.ratelimit.TypedPermitRequest;
@@ -9,7 +10,6 @@ import io.contek.invoker.commons.rest.RestParams;
 
 import javax.annotation.concurrent.NotThreadSafe;
 import java.util.List;
-import java.util.Map;
 
 import static io.contek.invoker.binancelinear.api.ApiFactory.RateLimits.ONE_REST_REQUEST;
 
@@ -43,39 +43,15 @@ public final class GetExchangeInfo extends MarketRestRequest<Response> {
   @NotThreadSafe
   public static final class Response {
 
-    public List<MarketDetails> symbols;
+    public List<_MarketAssetDetails> assets;
+    public List<_MarketDetails> symbols;
   }
 
   @NotThreadSafe
-  public static final class AssetDetails {
+  public static final class _MarketAssetDetails {
 
     public String asset;
     public Boolean marginAvailable;
     public Integer autoAssetExchange;
-  }
-
-  @NotThreadSafe
-  public static final class MarketDetails {
-
-    public String symbol;
-    public String pair;
-    public String contractType;
-    public Long deliveryDate;
-    public Long onboardDate;
-    public String status;
-    public String maintMarginPercent;
-    public String requiredMarginPercent;
-    public String baseAsset;
-    public String quoteAsset;
-    public String marginAsset;
-    public Integer pricePrecision;
-    public Integer quantityPrecision;
-    public Integer baseAssetPrecision;
-    public Integer quotePrecision;
-    public String underlyingType;
-    public List<String> underlyingSubType;
-    public String triggerProtect;
-
-    public List<Map<String, Object>> filters;
   }
 }
