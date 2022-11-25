@@ -23,7 +23,7 @@ public class TestMarketTradesWS {
                 return ConsumerState.ACTIVE;
             }
         };
-        IMarketWebSocketApi api = ApiFactory.getMainNet().ws().market(false);
-        api.getTradeChannel("ETHUSDT").addConsumer(consumer);
+        IMarketWebSocketApi api = ApiFactory.getMainNet().ws().market(true);
+        api.getTradeChannel("ethusdt").addConsumer(consumer);
     }
 }
