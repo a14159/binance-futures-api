@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 @NotThreadSafe
-public final class _MarketDetails {
+public class _MarketDetails {
 
     public String symbol;
     public String pair;

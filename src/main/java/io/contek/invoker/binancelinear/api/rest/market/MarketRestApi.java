@@ -24,6 +24,10 @@ public final class MarketRestApi {
     return new GetExchangeInfo(actor, context);
   }
 
+  public GetMarkPrice getMarkPrice() {
+    return new GetMarkPrice(actor, context);
+  }
+
   public GetGlobalLongShortAccountRatio getGlobalLongShortAccountRatio() {
     return new GetGlobalLongShortAccountRatio(actor, context);
   }
