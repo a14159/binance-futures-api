@@ -20,6 +20,10 @@ public final class MarketRestApi {
     return new Get24hSummary(actor, context);
   }
 
+  public Get24hSummaries get24hSummaries() {
+    return new Get24hSummaries(actor, context);
+  }
+
   public GetDepth getDepth() {
     return new GetDepth(actor, context);
   }
