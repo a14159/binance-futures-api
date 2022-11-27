@@ -16,6 +16,10 @@ public final class MarketRestApi {
     this.context = context;
   }
 
+  public Get24hSummary get24hSummary() {
+    return new Get24hSummary(actor, context);
+  }
+
   public GetDepth getDepth() {
     return new GetDepth(actor, context);
   }
