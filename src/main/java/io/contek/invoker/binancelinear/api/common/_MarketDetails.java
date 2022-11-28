@@ -1,6 +1,7 @@
 package io.contek.invoker.binancelinear.api.common;
 
 import javax.annotation.concurrent.NotThreadSafe;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -27,5 +28,12 @@ public class _MarketDetails {
     public int settlePlan;
     public String triggerProtect;
 
-    public List<Map<String, String>> filters;
+    public List<_Filter> filters;
+
+    @NotThreadSafe
+    public static class _Filter extends HashMap<String, String> {
+        public String getFilterType() {
+            return get("filterType");
+        }
+    }
 }
