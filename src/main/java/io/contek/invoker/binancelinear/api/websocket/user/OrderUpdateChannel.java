@@ -6,6 +6,7 @@ import io.contek.invoker.binancelinear.api.websocket.user.constants.UserEventTyp
 import javax.annotation.concurrent.Immutable;
 import javax.annotation.concurrent.NotThreadSafe;
 import javax.annotation.concurrent.ThreadSafe;
+import java.math.BigDecimal;
 
 @ThreadSafe
 public final class OrderUpdateChannel extends UserWebSocketChannel<OrderUpdateChannel.Data> {
@@ -43,18 +44,18 @@ public final class OrderUpdateChannel extends UserWebSocketChannel<OrderUpdateCh
       public String S; // side
       public String o; // order type
       public String f; // time in force
-      public Double q; // original quantity;
-      public Double p; // original price
-      public Double ap; // average price
-      public Double sp; // stop price
+      public BigDecimal q; // original quantity;
+      public BigDecimal p; // original price
+      public BigDecimal ap; // average price
+      public BigDecimal sp; // stop price
       public String x; // execution type
       public String X; // order status
       public Long i; // order id
-      public Double l; // order last filled quantity
-      public Double z; // order filled accumulated quantity
-      public Double L; // last filled quantity
+      public BigDecimal l; // order last filled quantity
+      public BigDecimal z; // order filled accumulated quantity
+      public BigDecimal L; // Last Filled Price
       public String N; // commission asset
-      public String n; // commission
+      public BigDecimal n; // commission
       public Long T; // order trade time
       public Long t; // trade id
       public Double b; // bids notional
