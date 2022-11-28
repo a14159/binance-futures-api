@@ -18,8 +18,8 @@ public class _MarketDetails {
     public String baseAsset;
     public String quoteAsset;
     public String marginAsset;
-    public int pricePrecision;
-    public int quantityPrecision;
+    public int pricePrecision; // ignore
+    public int quantityPrecision; // ignore
     public int baseAssetPrecision; // base precision
     public int quotePrecision; // quote precision
     public String underlyingType;
