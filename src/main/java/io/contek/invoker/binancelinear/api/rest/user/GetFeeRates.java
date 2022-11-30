@@ -44,7 +44,7 @@ public final class GetFeeRates extends UserRestRequest<Response> {
 
   @Override
   protected String getEndpointPath() {
-    return "/fapi/v1/userTrades";
+    return "/fapi/v1/commissionRate";
   }
 
   @Override
