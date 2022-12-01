@@ -25,11 +25,17 @@ public final class GetAggregatedTrades extends MarketRestRequest<Response> {
     return this;
   }
 
+  /**
+   *  	Timestamp in ms to get aggregate trades from INCLUSIVE.
+   */
   public GetAggregatedTrades setStartTime(long startTime) {
     this.startTime = startTime;
     return this;
   }
 
+  /**
+   * Timestamp in ms to get aggregate trades until INCLUSIVE.
+   */
   public GetAggregatedTrades setEndTime(long endTime) {
     this.endTime = endTime;
     return this;
