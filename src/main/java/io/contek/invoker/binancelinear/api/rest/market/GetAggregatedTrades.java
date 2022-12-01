@@ -10,6 +10,8 @@ import io.contek.invoker.commons.rest.RestParams;
 
 import javax.annotation.concurrent.NotThreadSafe;
 
+import java.util.ArrayList;
+
 import static com.google.common.base.Preconditions.checkNotNull;
 import static io.contek.invoker.binancelinear.api.ApiFactory.RateLimits.ONE_REST_REQUEST;
 
@@ -78,5 +80,5 @@ public final class GetAggregatedTrades extends MarketRestRequest<Response> {
       return ONE_REST_REQUEST;
   }
 
-  public static final class Response extends _AggTrade {}
+  public static final class Response extends ArrayList<_AggTrade> {}
 }
