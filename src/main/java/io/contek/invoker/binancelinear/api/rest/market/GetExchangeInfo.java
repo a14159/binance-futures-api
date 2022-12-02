@@ -52,6 +52,6 @@ public final class GetExchangeInfo extends MarketRestRequest<Response> {
 
     public String asset;
     public Boolean marginAvailable;
-    public Integer autoAssetExchange;
+    public Double autoAssetExchange;
   }
 }

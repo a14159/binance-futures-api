@@ -25,7 +25,7 @@ public class _MarketDetails {
     public int quotePrecision; // quote precision
     public String underlyingType;
     public List<String> underlyingSubType;
-    public int settlePlan;
+    public long settlePlan;
     public String triggerProtect;
 
     public List<_Filter> filters;
