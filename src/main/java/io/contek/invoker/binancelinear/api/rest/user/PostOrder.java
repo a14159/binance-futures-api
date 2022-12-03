@@ -32,7 +32,7 @@ public final class PostOrder extends UserRestRequest<Response> {
   private String type;
   private String timeInForce;
   private BigDecimal quantity;
-  private boolean reduceOnly = false;
+  private Boolean reduceOnly = false;
   private BigDecimal price;
   private String newClientOrderId;
   private BigDecimal stopPrice;
@@ -159,7 +159,7 @@ public final class PostOrder extends UserRestRequest<Response> {
       builder.add("quantity", quantity.toPlainString());
     }
 
-    if (reduceOnly) {
+    if (reduceOnly != null) {
       builder.add("reduceOnly", reduceOnly);
     }
 
