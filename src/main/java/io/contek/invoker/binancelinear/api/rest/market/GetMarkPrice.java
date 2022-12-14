@@ -2,7 +2,6 @@ package io.contek.invoker.binancelinear.api.rest.market;
 
 import com.google.common.collect.ImmutableList;
 import io.contek.invoker.binancelinear.api.common._FutureDetails;
-import io.contek.invoker.binancelinear.api.common._OpenInterest;
 import io.contek.invoker.binancelinear.api.rest.market.GetMarkPrice.Response;
 import io.contek.invoker.commons.actor.IActor;
 import io.contek.invoker.commons.actor.ratelimit.TypedPermitRequest;

@@ -2,8 +2,6 @@ package io.contek.invoker.binancelinear.api.common;
 
 import javax.annotation.concurrent.NotThreadSafe;
 import java.math.BigDecimal;
-import java.util.List;
-import java.util.Map;
 
 @NotThreadSafe
 public class _FutureDetails {

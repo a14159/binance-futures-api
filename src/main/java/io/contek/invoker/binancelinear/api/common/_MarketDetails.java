@@ -3,7 +3,6 @@ package io.contek.invoker.binancelinear.api.common;
 import javax.annotation.concurrent.NotThreadSafe;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @NotThreadSafe
 public class _MarketDetails {
