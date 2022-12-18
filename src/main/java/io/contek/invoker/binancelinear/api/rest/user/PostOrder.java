@@ -41,7 +41,6 @@ public final class PostOrder extends UserRestRequest<Response> {
   private BigDecimal callbackRate;
   private String workingType;
   private boolean priceProtect;
-  private String newOrderRespType;
 
   PostOrder(IActor actor, RestContext context) {
     super(actor, context);
@@ -122,11 +121,6 @@ public final class PostOrder extends UserRestRequest<Response> {
     return this;
   }
 
-  public PostOrder setNewOrderRespType(@Nullable String newOrderRespType) {
-    this.newOrderRespType = newOrderRespType;
-    return this;
-  }
-
   @Override
   protected Class<Response> getResponseType() {
     return Response.class;
@@ -203,9 +197,7 @@ public final class PostOrder extends UserRestRequest<Response> {
       builder.add("priceProtect", priceProtect);
     }
 
-    if (newOrderRespType != null) {
-      builder.add("newOrderRespType", newOrderRespType);
-    }
+    builder.add("newOrderRespType", "ACK");
 
     builder.add("timestamp", getMillis());
 
