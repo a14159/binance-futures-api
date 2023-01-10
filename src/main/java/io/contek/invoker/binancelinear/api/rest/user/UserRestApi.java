@@ -48,6 +48,10 @@ public final class UserRestApi {
     return new GetUserTrades(actor, context);
   }
 
+  public GetLeverageBrackets getLeverageBrackets() {
+    return new GetLeverageBrackets(actor, context);
+  }
+
   public PostLeverage postLeverage() {
     return new PostLeverage(actor, context);
   }
