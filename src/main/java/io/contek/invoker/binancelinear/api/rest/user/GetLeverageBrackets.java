@@ -1,7 +1,7 @@
 package io.contek.invoker.binancelinear.api.rest.user;
 
 import com.google.common.collect.ImmutableList;
-import io.contek.invoker.binancelinear.api.common._LeverageBracket;
+import io.contek.invoker.binancelinear.api.common._Leverage;
 import io.contek.invoker.commons.actor.IActor;
 import io.contek.invoker.commons.actor.ratelimit.TypedPermitRequest;
 import io.contek.invoker.commons.rest.RestContext;
@@ -10,7 +10,7 @@ import io.contek.invoker.commons.rest.RestParams;
 
 import javax.annotation.concurrent.NotThreadSafe;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import static io.contek.invoker.binancelinear.api.ApiFactory.RateLimits.IP_REST_REQUEST_RULE;
 import static io.contek.invoker.commons.rest.RestMethod.GET;
@@ -65,8 +65,5 @@ public final class GetLeverageBrackets extends UserRestRequest<GetLeverageBracke
   }
 
   @NotThreadSafe
-  public static final class Response {
-    public String symbol;
-    public List<_LeverageBracket> brackets;
-  }
+  public static final class Response extends ArrayList<_Leverage> {}
 }
