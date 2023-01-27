@@ -11,5 +11,5 @@ public class _LeverageBracket {
   public long notionalCap;
   public long notionalFloor;
   public BigDecimal maintMarginRatio;
-  public int cum;
+  public BigDecimal cum;
 }
