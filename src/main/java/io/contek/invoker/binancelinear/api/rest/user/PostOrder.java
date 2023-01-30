@@ -167,6 +167,8 @@ public final class PostOrder extends UserRestRequest<Response> {
 
     if (timeInForce != null) {
       builder.add("timeInForce", timeInForce);
+    } else {
+      builder.add("timeInForce", "GTC"); // seems to be mandatory
     }
 
     if (newClientOrderId != null) {
