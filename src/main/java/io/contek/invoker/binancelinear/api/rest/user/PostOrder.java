@@ -2,6 +2,7 @@ package io.contek.invoker.binancelinear.api.rest.user;
 
 import com.google.common.collect.ImmutableList;
 import io.contek.invoker.binancelinear.api.common._Order;
+import io.contek.invoker.binancelinear.api.common.constants.OrderTypeKeys;
 import io.contek.invoker.binancelinear.api.rest.user.PostOrder.Response;
 import io.contek.invoker.commons.actor.IActor;
 import io.contek.invoker.commons.actor.ratelimit.TypedPermitRequest;
@@ -168,7 +169,8 @@ public final class PostOrder extends UserRestRequest<Response> {
     if (timeInForce != null) {
       builder.add("timeInForce", timeInForce);
     } else {
-      builder.add("timeInForce", "GTC"); // seems to be mandatory
+      if (type.equals(OrderTypeKeys._LIMIT))
+        builder.add("timeInForce", "GTC"); // seems to be mandatory for LOs
     }
 
     if (newClientOrderId != null) {
