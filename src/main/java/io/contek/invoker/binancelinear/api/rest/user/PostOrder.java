@@ -33,7 +33,7 @@ public final class PostOrder extends UserRestRequest<Response> {
   private String type;
   private String timeInForce;
   private BigDecimal quantity;
-  private Boolean reduceOnly = false;
+  private boolean reduceOnly = false;
   private BigDecimal price;
   private String newClientOrderId;
   private BigDecimal stopPrice;
@@ -41,7 +41,7 @@ public final class PostOrder extends UserRestRequest<Response> {
   private BigDecimal activationPrice;
   private BigDecimal callbackRate;
   private String workingType;
-  private boolean priceProtect;
+  private boolean priceProtect = false;
 
   PostOrder(IActor actor, RestContext context) {
     super(actor, context);
@@ -77,7 +77,7 @@ public final class PostOrder extends UserRestRequest<Response> {
     return this;
   }
 
-  public PostOrder setReduceOnly(@Nullable Boolean reduceOnly) {
+  public PostOrder setReduceOnly(boolean reduceOnly) {
     this.reduceOnly = reduceOnly;
     return this;
   }
@@ -97,7 +97,7 @@ public final class PostOrder extends UserRestRequest<Response> {
     return this;
   }
 
-  public PostOrder setClosePosition(@Nullable Boolean closePosition) {
+  public PostOrder setClosePosition(boolean closePosition) {
     this.closePosition = closePosition;
     return this;
   }
@@ -117,7 +117,7 @@ public final class PostOrder extends UserRestRequest<Response> {
     return this;
   }
 
-  public PostOrder setPriceProtect(@Nullable Boolean priceProtect) {
+  public PostOrder setPriceProtect(boolean priceProtect) {
     this.priceProtect = priceProtect;
     return this;
   }
@@ -154,7 +154,7 @@ public final class PostOrder extends UserRestRequest<Response> {
       builder.add("quantity", quantity.toPlainString());
     }
 
-    if (reduceOnly != null) {
+    if (reduceOnly) { // default false, cannot be sent in Hedge Mode; cannot be sent with closePosition=true
       builder.add("reduceOnly", reduceOnly);
     }
 
@@ -181,7 +181,7 @@ public final class PostOrder extends UserRestRequest<Response> {
       builder.add("stopPrice", stopPrice.toPlainString());
     }
 
-    if (closePosition) {
+    if (closePosition) { // default false, used with STOP_MARKET or TAKE_PROFIT_MARKET
       builder.add("closePosition", closePosition);
     }
 
@@ -197,7 +197,7 @@ public final class PostOrder extends UserRestRequest<Response> {
       builder.add("workingType", workingType);
     }
 
-    if (priceProtect) {
+    if (priceProtect) { // default false, used with STOP/STOP_MARKET or TAKE_PROFIT/TAKE_PROFIT_MARKET orders.
       builder.add("priceProtect", priceProtect);
     }
 
