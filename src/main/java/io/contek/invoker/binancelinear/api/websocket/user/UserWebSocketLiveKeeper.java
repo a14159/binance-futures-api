@@ -52,7 +52,7 @@ final class UserWebSocketLiveKeeper implements IWebSocketLiveKeeper {
         userRestApi.putListenKey().setListenKey(state.getListenKey()).submit();
         stateHolder.set(new State(state.getListenKey(), timestamp));
       } catch (AnyHttpException e) {
-        log.warn("Failed to refresh listen key: {}", e.getMessage());
+        log.warn("Failed to refresh listen key: {} {}", e.getClass().getSimpleName(), e.getMessage());
       }
     }
   }
