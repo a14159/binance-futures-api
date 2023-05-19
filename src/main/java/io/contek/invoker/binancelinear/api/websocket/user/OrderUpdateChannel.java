@@ -33,42 +33,42 @@ public final class OrderUpdateChannel extends UserWebSocketChannel<OrderUpdateCh
   @NotThreadSafe
   public static final class Data extends WebSocketEventData {
 
-    public long T; // trasnaction time
+    public long T; // transaction time
     public Order o;
+  }
 
-    @NotThreadSafe
-    public static class Order {
+  @NotThreadSafe
+  public static final class Order {
 
-      public String s; // symbol
-      public String c; // client order id
-      public String S; // side
-      public String o; // order type
-      public String f; // time in force
-      public BigDecimal q; // original quantity;
-      public BigDecimal p; // original price
-      public BigDecimal ap; // average price
-      public BigDecimal sp; // stop price
-      public String x; // execution type
-      public String X; // order status
-      public Long i; // order id
-      public BigDecimal l; // order last filled quantity
-      public BigDecimal z; // order filled accumulated quantity
-      public BigDecimal L; // Last Filled Price
-      public String N; // commission asset
-      public BigDecimal n; // commission
-      public Long T; // order trade time
-      public Long t; // trade id
-      public Double b; // bids notional
-      public Double a; // ask notional
-      public Boolean m; // is the trade the maker side
-      public Boolean R; // is this trade reduce only
-      public String wt; // stop work price type
-      public String ot; // original order type
-      public String ps; // position side
-      public Boolean cp; // if close all push with conditional order
-      public Double AP; // activatin price
-      public Double cr; // callback rate
-      public Double rp; // realized profit
-    }
+    public String s; // symbol
+    public String c; // client order id
+    public String S; // side
+    public String o; // order type
+    public String f; // time in force
+    public BigDecimal q; // original quantity;
+    public BigDecimal p; // original price
+    public BigDecimal ap; // average price
+    public BigDecimal sp; // stop price
+    public String x; // execution type
+    public String X; // order status
+    public Long i; // order id
+    public BigDecimal l; // order last filled quantity
+    public BigDecimal z; // order filled accumulated quantity
+    public BigDecimal L; // Last Filled Price
+    public String N; // commission asset
+    public BigDecimal n; // commission
+    public Long T; // order trade time
+    public Long t; // trade id
+    public BigDecimal b; // bids notional
+    public BigDecimal a; // ask notional
+    public Boolean m; // is the trade the maker side
+    public Boolean R; // is this trade reduce only
+    public String wt; // stop work price type
+    public String ot; // original order type
+    public String ps; // position side
+    public Boolean cp; // if close all push with conditional order
+    public BigDecimal AP; // activation price
+    public BigDecimal cr; // callback rate
+    public BigDecimal rp; // realized profit
   }
 }

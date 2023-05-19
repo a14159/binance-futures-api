@@ -6,6 +6,7 @@ import io.contek.invoker.binancelinear.api.websocket.user.constants.UserEventTyp
 import javax.annotation.concurrent.Immutable;
 import javax.annotation.concurrent.NotThreadSafe;
 import javax.annotation.concurrent.ThreadSafe;
+import java.math.BigDecimal;
 import java.util.List;
 
 @ThreadSafe
@@ -49,20 +50,21 @@ public final class AccountUpdateChannel extends UserWebSocketChannel<AccountUpda
   public static final class BalanceUpdate {
 
     public String a; // asset
-    public Double wb; // wallet balance
-    public Double cw; // cross wallet balance
+    public BigDecimal wb; // wallet balance
+    public BigDecimal cw; // cross wallet balance
+    public BigDecimal bc; // Balance Change except PnL and Commission
   }
 
   @NotThreadSafe
   public static final class PositionUpdate {
 
     public String s; // symbol
-    public Double pa; // position amount
-    public Double ep; // entry price
-    public Double cr; // pre-fee accumulated realized
-    public Double up; // unrealized PnL
+    public BigDecimal pa; // position amount
+    public BigDecimal ep; // entry price
+    public BigDecimal cr; // pre-fee accumulated realized
+    public BigDecimal up; // unrealized PnL
     public String mt; // margin type
-    public Double iw; // isolated wallet
+    public BigDecimal iw; // isolated wallet
     public String ps; // position side
   }
 }
