@@ -51,14 +51,14 @@ public final class OrderUpdateChannel extends UserWebSocketChannel<OrderUpdateCh
     public BigDecimal sp; // stop price
     public String x; // execution type
     public String X; // order status
-    public Long i; // order id
+    public String i; // order id
     public BigDecimal l; // order last filled quantity
     public BigDecimal z; // order filled accumulated quantity
     public BigDecimal L; // Last Filled Price
     public String N; // commission asset
     public BigDecimal n; // commission
     public Long T; // order trade time
-    public Long t; // trade id
+    public String t; // trade id
     public BigDecimal b; // bids notional
     public BigDecimal a; // ask notional
     public Boolean m; // is the trade the maker side
