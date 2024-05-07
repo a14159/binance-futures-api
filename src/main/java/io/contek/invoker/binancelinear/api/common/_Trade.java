@@ -5,7 +5,7 @@ import javax.annotation.concurrent.NotThreadSafe;
 @NotThreadSafe
 public class _Trade {
 
-  public Long id;
+  public String id;
   public Double price;
   public Double qty;
   public Long time;

@@ -9,9 +9,9 @@ public class _UserTrade {
   public boolean buyer;
   public BigDecimal commission;
   public String commissionAsset;
-  public long id;
+  public String id;
   public boolean maker;
-  public long orderId;
+  public String orderId;
   public BigDecimal price;
   public BigDecimal qty;
   public BigDecimal quoteQty;
