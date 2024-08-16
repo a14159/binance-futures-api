@@ -22,4 +22,5 @@ public class _Order {
   public BigDecimal stopPrice;
   public long updateTime;
   public String workingType;
+  public long traceNano = System.nanoTime();
 }

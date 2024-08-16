@@ -20,4 +20,5 @@ public class _UserTrade {
   public String positionSide;
   public String symbol;
   public long time;
+  public long traceNano = System.nanoTime();
 }

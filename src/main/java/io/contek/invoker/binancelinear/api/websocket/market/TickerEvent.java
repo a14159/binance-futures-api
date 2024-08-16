@@ -23,4 +23,5 @@ public class TickerEvent extends WebSocketEventData {
   public Long F; // First trade ID
   public Long L; // Last trade Id
   public Integer n; // Total number of trades
+  public long traceNano = System.nanoTime();
 }

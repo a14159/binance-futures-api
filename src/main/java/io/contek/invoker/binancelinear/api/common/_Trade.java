@@ -11,4 +11,5 @@ public class _Trade {
   public Long time;
   public Boolean isBuyerMaker;
   public Boolean isBestMatch;
+  public long traceNano = System.nanoTime();
 }

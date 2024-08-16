@@ -70,5 +70,6 @@ public final class OrderUpdateChannel extends UserWebSocketChannel<OrderUpdateCh
     public BigDecimal AP; // activation price
     public BigDecimal cr; // callback rate
     public BigDecimal rp; // realized profit
+    public long traceNano = System.nanoTime();
   }
 }
