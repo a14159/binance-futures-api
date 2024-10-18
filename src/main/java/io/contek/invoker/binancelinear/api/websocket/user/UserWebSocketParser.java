@@ -1,8 +1,7 @@
 package io.contek.invoker.binancelinear.api.websocket.user;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
+import com.alibaba.fastjson2.JSON;
+import com.alibaba.fastjson2.JSONObject;
 import io.contek.invoker.binancelinear.api.websocket.common.WebSocketEventData;
 import io.contek.invoker.binancelinear.api.websocket.user.constants.UserEventTypeKeys;
 import io.contek.invoker.commons.websocket.IWebSocketComponent;
@@ -14,8 +13,6 @@ import javax.annotation.concurrent.ThreadSafe;
 @ThreadSafe
 public final class UserWebSocketParser extends WebSocketTextMessageParser {
 
-  private final Gson gson = new Gson();
-
   static UserWebSocketParser getInstance() {
     return UserWebSocketParser.InstanceHolder.INSTANCE;
   }
@@ -25,30 +22,22 @@ public final class UserWebSocketParser extends WebSocketTextMessageParser {
 
   @Override
   public WebSocketEventData fromText(String text) {
-    JsonElement json = gson.fromJson(text, JsonElement.class);
-    if (!json.isJsonObject()) {
-      throw new IllegalArgumentException(text);
-    }
-
-    JsonObject obj = json.getAsJsonObject();
-    if (obj.has("e")) {
-      return toUserData(obj);
+    JSONObject json = JSON.parseObject(text);
+    if (json.containsKey("e")) {
+      return toUserData(json);
     }
 
     throw new IllegalStateException(text);
   }
 
-  private WebSocketEventData toUserData(JsonObject obj) {
-    String eventType = obj.get("e").getAsString();
+  private WebSocketEventData toUserData(JSONObject obj) {
+    String eventType = obj.get("e").toString();
     return switch (eventType) {
-      case UserEventTypeKeys._ACCOUNT_UPDATE -> gson.fromJson(obj, AccountUpdateChannel.Data.class);
-      case UserEventTypeKeys._ORDER_TRADE_UPDATE -> gson.fromJson(
-          obj, OrderUpdateChannel.Data.class);
-      case UserEventTypeKeys._ACCOUNT_CONFIG_UPDATE -> gson.fromJson(
-          obj, AccountConfigUpdateChannel.Data.class);
-      case UserEventTypeKeys._MARGIN_CALL -> gson.fromJson(obj, MarginCallChannel.Data.class);
-      case UserEventTypeKeys._listenKeyExpired -> gson.fromJson(
-          obj, UserDataStreamExpiredEvent.class);
+      case UserEventTypeKeys._ACCOUNT_UPDATE -> obj.toJavaObject(AccountUpdateChannel.Data.class);
+      case UserEventTypeKeys._ORDER_TRADE_UPDATE -> obj.toJavaObject(OrderUpdateChannel.Data.class);
+      case UserEventTypeKeys._ACCOUNT_CONFIG_UPDATE -> obj.toJavaObject(AccountConfigUpdateChannel.Data.class);
+      case UserEventTypeKeys._MARGIN_CALL -> obj.toJavaObject(MarginCallChannel.Data.class);
+      case UserEventTypeKeys._listenKeyExpired -> obj.toJavaObject(UserDataStreamExpiredEvent.class);
       default -> throw new IllegalStateException("Unrecognized event type: " + eventType);
     };
   }
