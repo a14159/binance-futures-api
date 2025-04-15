@@ -1,6 +1,5 @@
 package io.contek.invoker.binancelinear.api.rest.user;
 
-import com.google.common.collect.ImmutableList;
 import io.contek.invoker.binancelinear.api.common._InitialLeverageInfo;
 import io.contek.invoker.binancelinear.api.rest.user.PostLeverage.Response;
 import io.contek.invoker.commons.actor.IActor;
@@ -10,8 +9,9 @@ import io.contek.invoker.commons.rest.RestMethod;
 import io.contek.invoker.commons.rest.RestParams;
 
 import javax.annotation.concurrent.NotThreadSafe;
+import java.util.List;
+import java.util.Objects;
 
-import static com.google.common.base.Preconditions.checkNotNull;
 import static io.contek.invoker.binancelinear.api.ApiFactory.RateLimits.ONE_REST_REQUEST;
 import static io.contek.invoker.commons.rest.RestMethod.POST;
 
@@ -54,10 +54,10 @@ public final class PostLeverage extends UserRestRequest<Response> {
   protected RestParams getParams() {
     RestParams.Builder builder = RestParams.newBuilder();
 
-    checkNotNull(symbol);
+    Objects.requireNonNull(symbol);
     builder.add("symbol", symbol);
 
-    checkNotNull(leverage);
+    Objects.requireNonNull(leverage);
     builder.add("leverage", leverage);
 
     builder.add("timestamp", getMillis());
@@ -66,7 +66,7 @@ public final class PostLeverage extends UserRestRequest<Response> {
   }
 
   @Override
-  protected ImmutableList<TypedPermitRequest> getRequiredQuotas() {
+  protected List<TypedPermitRequest> getRequiredQuotas() {
     return ONE_REST_REQUEST;
   }
 

@@ -1,6 +1,5 @@
 package io.contek.invoker.binancelinear.api.rest.user;
 
-import com.google.common.collect.ImmutableList;
 import io.contek.invoker.binancelinear.api.common._Leverage;
 import io.contek.invoker.commons.actor.IActor;
 import io.contek.invoker.commons.actor.ratelimit.TypedPermitRequest;
@@ -10,6 +9,7 @@ import io.contek.invoker.commons.rest.RestParams;
 
 import javax.annotation.concurrent.NotThreadSafe;
 import java.util.ArrayList;
+import java.util.List;
 
 import static io.contek.invoker.binancelinear.api.ApiFactory.RateLimits.IP_REST_REQUEST_RULE;
 import static io.contek.invoker.commons.rest.RestMethod.GET;
@@ -17,8 +17,8 @@ import static io.contek.invoker.commons.rest.RestMethod.GET;
 @NotThreadSafe
 public final class GetLeverageBrackets extends UserRestRequest<GetLeverageBrackets.Response> {
 
-  private static final ImmutableList<TypedPermitRequest> REQUIRED_QUOTA =
-      ImmutableList.of(IP_REST_REQUEST_RULE.forPermits(1));
+  private static final List<TypedPermitRequest> REQUIRED_QUOTA =
+      List.of(IP_REST_REQUEST_RULE.forPermits(1));
 
   private String symbol;
 
@@ -59,7 +59,7 @@ public final class GetLeverageBrackets extends UserRestRequest<GetLeverageBracke
   }
 
   @Override
-  protected ImmutableList<TypedPermitRequest> getRequiredQuotas() {
+  protected List<TypedPermitRequest> getRequiredQuotas() {
     return REQUIRED_QUOTA;
   }
 

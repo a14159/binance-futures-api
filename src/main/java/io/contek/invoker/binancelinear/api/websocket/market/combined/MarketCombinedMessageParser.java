@@ -2,14 +2,12 @@ package io.contek.invoker.binancelinear.api.websocket.market.combined;
 
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONObject;
-import com.google.common.base.Splitter;
 import io.contek.invoker.binancelinear.api.websocket.market.BookTickerEvent;
 import io.contek.invoker.commons.websocket.AnyWebSocketMessage;
 import io.contek.invoker.commons.websocket.IWebSocketComponent;
 import io.contek.invoker.commons.websocket.WebSocketTextMessageParser;
 
 import javax.annotation.concurrent.Immutable;
-import java.util.List;
 
 import static io.contek.invoker.binancelinear.api.websocket.common.constants.WebSocketChannelKeys.*;
 
@@ -41,11 +39,11 @@ final class MarketCombinedMessageParser extends WebSocketTextMessageParser {
 
   private AnyWebSocketMessage toStreamData(JSONObject obj) {
     String stream = obj.get("stream").toString();
-    List<String> parts = Splitter.on('@').splitToList(stream);
-    if (parts.size() < 2) {
+    String[] parts = stream.split("@");
+    if (parts.length < 2) {
       throw new IllegalArgumentException(stream);
     }
-    String type = parts.get(1);
+    String type = parts[1];
     return switch (type) {
       case _bookTicker -> obj.toJavaObject(BookTickerChannel.Message.class);
       case _trade -> obj.toJavaObject(TradeChannel.Message.class);

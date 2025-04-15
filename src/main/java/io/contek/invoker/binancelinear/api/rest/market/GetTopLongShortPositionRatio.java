@@ -1,6 +1,5 @@
 package io.contek.invoker.binancelinear.api.rest.market;
 
-import com.google.common.collect.ImmutableList;
 import io.contek.invoker.binancelinear.api.common._LongShortRatio;
 import io.contek.invoker.binancelinear.api.rest.market.GetTopLongShortPositionRatio.Response;
 import io.contek.invoker.commons.actor.IActor;
@@ -11,8 +10,9 @@ import io.contek.invoker.commons.rest.RestParams;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
-import static com.google.common.base.Preconditions.checkNotNull;
 import static io.contek.invoker.binancelinear.api.ApiFactory.RateLimits.ONE_REST_REQUEST;
 
 @NotThreadSafe
@@ -67,9 +67,9 @@ public final class GetTopLongShortPositionRatio extends MarketRestRequest<Respon
   protected RestParams getParams() {
     RestParams.Builder builder = RestParams.newBuilder();
 
-    checkNotNull(symbol);
+    Objects.requireNonNull(symbol);
     builder.add("symbol", symbol);
-    checkNotNull(period);
+    Objects.requireNonNull(period);
     builder.add("period", period);
     if (startTime != null) {
       builder.add("startTime", startTime);
@@ -85,7 +85,7 @@ public final class GetTopLongShortPositionRatio extends MarketRestRequest<Respon
   }
 
   @Override
-  protected ImmutableList<TypedPermitRequest> getRequiredQuotas() {
+  protected List<TypedPermitRequest> getRequiredQuotas() {
     return ONE_REST_REQUEST;
   }
 

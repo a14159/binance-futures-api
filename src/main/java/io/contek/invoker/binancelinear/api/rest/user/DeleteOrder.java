@@ -1,6 +1,5 @@
 package io.contek.invoker.binancelinear.api.rest.user;
 
-import com.google.common.collect.ImmutableList;
 import io.contek.invoker.binancelinear.api.common._Order;
 import io.contek.invoker.binancelinear.api.rest.user.DeleteOrder.Response;
 import io.contek.invoker.commons.actor.IActor;
@@ -10,9 +9,9 @@ import io.contek.invoker.commons.rest.RestMethod;
 import io.contek.invoker.commons.rest.RestParams;
 
 import javax.annotation.concurrent.NotThreadSafe;
+import java.util.List;
+import java.util.Objects;
 
-import static com.google.common.base.Preconditions.checkArgument;
-import static com.google.common.base.Preconditions.checkNotNull;
 import static io.contek.invoker.binancelinear.api.ApiFactory.RateLimits.ONE_REST_REQUEST;
 import static io.contek.invoker.commons.rest.RestMethod.DELETE;
 
@@ -61,10 +60,12 @@ public final class DeleteOrder extends UserRestRequest<Response> {
   protected RestParams getParams() {
     RestParams.Builder builder = RestParams.newBuilder();
 
-    checkNotNull(symbol);
+    Objects.requireNonNull(symbol);
     builder.add("symbol", symbol);
 
-    checkArgument(orderId != null || origClientOrderId != null);
+    if (orderId == null && origClientOrderId == null) {
+      throw new IllegalArgumentException();
+    }
     if (orderId != null) {
       builder.add("orderId", orderId);
     }
@@ -78,7 +79,7 @@ public final class DeleteOrder extends UserRestRequest<Response> {
   }
 
   @Override
-  protected ImmutableList<TypedPermitRequest> getRequiredQuotas() {
+  protected List<TypedPermitRequest> getRequiredQuotas() {
     return ONE_REST_REQUEST;
   }
 

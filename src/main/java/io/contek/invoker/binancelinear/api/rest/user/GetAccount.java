@@ -1,6 +1,5 @@
 package io.contek.invoker.binancelinear.api.rest.user;
 
-import com.google.common.collect.ImmutableList;
 import io.contek.invoker.binancelinear.api.common._Account;
 import io.contek.invoker.binancelinear.api.rest.user.GetAccount.Response;
 import io.contek.invoker.commons.actor.IActor;
@@ -10,6 +9,7 @@ import io.contek.invoker.commons.rest.RestMethod;
 import io.contek.invoker.commons.rest.RestParams;
 
 import javax.annotation.concurrent.NotThreadSafe;
+import java.util.List;
 
 import static io.contek.invoker.binancelinear.api.ApiFactory.RateLimits.IP_REST_REQUEST_RULE;
 import static io.contek.invoker.commons.rest.RestMethod.GET;
@@ -17,8 +17,8 @@ import static io.contek.invoker.commons.rest.RestMethod.GET;
 @NotThreadSafe
 public final class GetAccount extends UserRestRequest<Response> {
 
-  private static final ImmutableList<TypedPermitRequest> REQUIRED_QUOTA =
-      ImmutableList.of(IP_REST_REQUEST_RULE.forPermits(5));
+  private static final List<TypedPermitRequest> REQUIRED_QUOTA =
+      List.of(IP_REST_REQUEST_RULE.forPermits(5));
 
   GetAccount(IActor actor, RestContext context) {
     super(actor, context);
@@ -49,7 +49,7 @@ public final class GetAccount extends UserRestRequest<Response> {
   }
 
   @Override
-  protected ImmutableList<TypedPermitRequest> getRequiredQuotas() {
+  protected List<TypedPermitRequest> getRequiredQuotas() {
     return REQUIRED_QUOTA;
   }
 

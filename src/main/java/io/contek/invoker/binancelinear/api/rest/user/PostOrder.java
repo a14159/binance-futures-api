@@ -1,6 +1,5 @@
 package io.contek.invoker.binancelinear.api.rest.user;
 
-import com.google.common.collect.ImmutableList;
 import io.contek.invoker.binancelinear.api.common._Order;
 import io.contek.invoker.binancelinear.api.common.constants.OrderTypeKeys;
 import io.contek.invoker.binancelinear.api.rest.user.PostOrder.Response;
@@ -13,16 +12,17 @@ import io.contek.invoker.commons.rest.RestParams;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 import java.math.BigDecimal;
+import java.util.List;
+import java.util.Objects;
 
-import static com.google.common.base.Preconditions.checkNotNull;
 import static io.contek.invoker.binancelinear.api.ApiFactory.RateLimits.*;
 import static io.contek.invoker.commons.rest.RestMethod.POST;
 
 @NotThreadSafe
 public final class PostOrder extends UserRestRequest<Response> {
 
-  private static final ImmutableList<TypedPermitRequest> REQUIRED_QUOTA =
-      ImmutableList.of(
+  private static final List<TypedPermitRequest> REQUIRED_QUOTA =
+      List.of(
           IP_REST_REQUEST_RULE.forPermits(1),
           API_KEY_REST_ORDER_RULE_ONE_MINUTE.forPermits(1),
           API_KEY_REST_ORDER_RULE_TEN_SECONDS.forPermits(1));
@@ -141,13 +141,13 @@ public final class PostOrder extends UserRestRequest<Response> {
   protected RestParams getParams() {
     RestParams.Builder builder = RestParams.newBuilder();
 
-    checkNotNull(symbol);
+    Objects.requireNonNull(symbol);
     builder.add("symbol", symbol);
 
-    checkNotNull(side);
+    Objects.requireNonNull(side);
     builder.add("side", side);
 
-    checkNotNull(type);
+    Objects.requireNonNull(type);
     builder.add("type", type);
 
     if (quantity != null) {
@@ -209,7 +209,7 @@ public final class PostOrder extends UserRestRequest<Response> {
   }
 
   @Override
-  protected ImmutableList<TypedPermitRequest> getRequiredQuotas() {
+  protected List<TypedPermitRequest> getRequiredQuotas() {
     return REQUIRED_QUOTA;
   }
 

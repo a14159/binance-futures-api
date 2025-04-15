@@ -1,6 +1,5 @@
 package io.contek.invoker.binancelinear.api.rest.market;
 
-import com.google.common.collect.ImmutableList;
 import io.contek.invoker.binancelinear.api.common._Candlestick;
 import io.contek.invoker.binancelinear.api.rest.market.GetKlines.Response;
 import io.contek.invoker.commons.actor.IActor;
@@ -11,9 +10,9 @@ import io.contek.invoker.commons.rest.RestParams;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
-import static com.google.common.base.Preconditions.checkArgument;
-import static com.google.common.base.Preconditions.checkNotNull;
 import static io.contek.invoker.binancelinear.api.ApiFactory.RateLimits.IP_REST_REQUEST_RULE;
 
 /**
@@ -31,14 +30,14 @@ import static io.contek.invoker.binancelinear.api.ApiFactory.RateLimits.IP_REST_
 public final class GetKlines extends MarketRestRequest<Response> {
 
   public static final int MAX_LIMIT = 1000;
-  private static final ImmutableList<TypedPermitRequest> REQUIRED_QUOTA_100 =
-      ImmutableList.of(IP_REST_REQUEST_RULE.forPermits(1));
-  private static final ImmutableList<TypedPermitRequest> REQUIRED_QUOTA_500 =
-      ImmutableList.of(IP_REST_REQUEST_RULE.forPermits(2));
-  private static final ImmutableList<TypedPermitRequest> REQUIRED_QUOTA_1000 =
-      ImmutableList.of(IP_REST_REQUEST_RULE.forPermits(5));
-  private static final ImmutableList<TypedPermitRequest> REQUIRED_QUOTA_1500 =
-      ImmutableList.of(IP_REST_REQUEST_RULE.forPermits(10));
+  private static final List<TypedPermitRequest> REQUIRED_QUOTA_100 =
+      List.of(IP_REST_REQUEST_RULE.forPermits(1));
+  private static final List<TypedPermitRequest> REQUIRED_QUOTA_500 =
+      List.of(IP_REST_REQUEST_RULE.forPermits(2));
+  private static final List<TypedPermitRequest> REQUIRED_QUOTA_1000 =
+      List.of(IP_REST_REQUEST_RULE.forPermits(5));
+  private static final List<TypedPermitRequest> REQUIRED_QUOTA_1500 =
+      List.of(IP_REST_REQUEST_RULE.forPermits(10));
 
   private String symbol;
   private String interval;
@@ -89,9 +88,9 @@ public final class GetKlines extends MarketRestRequest<Response> {
   protected RestParams getParams() {
     RestParams.Builder builder = RestParams.newBuilder();
 
-    checkNotNull(symbol);
+    Objects.requireNonNull(symbol);
     builder.add("symbol", symbol);
-    checkNotNull(interval);
+    Objects.requireNonNull(interval);
     builder.add("interval", interval);
     if (startTime != null) {
       builder.add("startTime", startTime);
@@ -100,7 +99,9 @@ public final class GetKlines extends MarketRestRequest<Response> {
       builder.add("endTime", endTime);
     }
     if (limit != null) {
-      checkArgument(limit <= MAX_LIMIT);
+      if (limit > MAX_LIMIT) {
+        throw new IllegalArgumentException();
+      }
       builder.add("limit", limit);
     }
 
@@ -108,7 +109,7 @@ public final class GetKlines extends MarketRestRequest<Response> {
   }
 
   @Override
-  protected ImmutableList<TypedPermitRequest> getRequiredQuotas() {
+  protected List<TypedPermitRequest> getRequiredQuotas() {
     int limit = this.limit != null ? this.limit : 500;
     if (limit < 100) {
       return REQUIRED_QUOTA_100;

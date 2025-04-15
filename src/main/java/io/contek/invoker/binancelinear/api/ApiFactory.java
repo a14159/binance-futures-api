@@ -1,6 +1,5 @@
 package io.contek.invoker.binancelinear.api;
 
-import com.google.common.collect.ImmutableList;
 import io.contek.invoker.binancelinear.api.rest.market.MarketRestApi;
 import io.contek.invoker.binancelinear.api.rest.user.UserRestApi;
 import io.contek.invoker.binancelinear.api.websocket.market.IMarketWebSocketApi;
@@ -173,11 +172,11 @@ public final class ApiFactory {
             .setResetPeriod(Duration.ofSeconds(1))
             .build();
 
-    public static final ImmutableList<TypedPermitRequest> ONE_REST_REQUEST =
-        ImmutableList.of(IP_REST_REQUEST_RULE.forPermits(1));
+    public static final List<TypedPermitRequest> ONE_REST_REQUEST =
+        List.of(IP_REST_REQUEST_RULE.forPermits(1));
 
-    public static final ImmutableList<TypedPermitRequest> ONE_WEB_SOCKET_CONNECTION =
-        ImmutableList.of(IP_WEB_SOCKET_CONNECTION_RULE.forPermits(1));
+    public static final List<TypedPermitRequest> ONE_WEB_SOCKET_CONNECTION =
+        List.of(IP_WEB_SOCKET_CONNECTION_RULE.forPermits(1));
 
     private RateLimits() {}
   }

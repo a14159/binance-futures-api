@@ -1,6 +1,5 @@
 package io.contek.invoker.binancelinear.api.rest.market;
 
-import com.google.common.collect.ImmutableList;
 import io.contek.invoker.binancelinear.api.common._OpenInterest;
 import io.contek.invoker.binancelinear.api.rest.market.GetOpenInterest.Response;
 import io.contek.invoker.commons.actor.IActor;
@@ -9,8 +8,9 @@ import io.contek.invoker.commons.rest.RestContext;
 import io.contek.invoker.commons.rest.RestParams;
 
 import javax.annotation.concurrent.NotThreadSafe;
+import java.util.List;
+import java.util.Objects;
 
-import static com.google.common.base.Preconditions.checkNotNull;
 import static io.contek.invoker.binancelinear.api.ApiFactory.RateLimits.ONE_REST_REQUEST;
 
 @NotThreadSafe
@@ -41,14 +41,14 @@ public final class GetOpenInterest extends MarketRestRequest<Response> {
   protected RestParams getParams() {
     RestParams.Builder builder = RestParams.newBuilder();
 
-    checkNotNull(symbol);
+    Objects.requireNonNull(symbol);
     builder.add("symbol", symbol);
 
     return builder.build();
   }
 
   @Override
-  protected ImmutableList<TypedPermitRequest> getRequiredQuotas() {
+  protected List<TypedPermitRequest> getRequiredQuotas() {
     return ONE_REST_REQUEST;
   }
 

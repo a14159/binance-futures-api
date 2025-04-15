@@ -1,6 +1,5 @@
 package io.contek.invoker.binancelinear.api.rest.market;
 
-import com.google.common.collect.ImmutableList;
 import io.contek.invoker.binancelinear.api.common._MarketDetails;
 import io.contek.invoker.binancelinear.api.rest.market.GetExchangeInfo.Response;
 import io.contek.invoker.commons.actor.IActor;
@@ -36,7 +35,7 @@ public final class GetExchangeInfo extends MarketRestRequest<Response> {
   }
 
   @Override
-  protected ImmutableList<TypedPermitRequest> getRequiredQuotas() {
+  protected List<TypedPermitRequest> getRequiredQuotas() {
     return ONE_REST_REQUEST;
   }
 
