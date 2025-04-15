@@ -77,8 +77,8 @@ public final class ApiFactory {
     return SimpleActorFactory.newBuilder()
         .setCredentialFactory(createCredentialFactory())
         .setHttpClientFactory(SimpleHttpClientFactory.getInstance())
-        .setRateLimitThrottleFactory(
-            SimpleRateLimitThrottleFactory.create(createLimiterManager(), interceptors))
+//        .setRateLimitThrottleFactory(
+//            SimpleRateLimitThrottleFactory.create(createLimiterManager(), interceptors))
         .build();
   }
 
