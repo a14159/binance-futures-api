@@ -11,7 +11,10 @@ import io.contek.invoker.commons.actor.IActor;
 import io.contek.invoker.commons.actor.IActorFactory;
 import io.contek.invoker.commons.actor.SimpleActorFactory;
 import io.contek.invoker.commons.actor.http.SimpleHttpClientFactory;
-import io.contek.invoker.commons.actor.ratelimit.*;
+import io.contek.invoker.commons.actor.ratelimit.IRateLimitQuotaInterceptor;
+import io.contek.invoker.commons.actor.ratelimit.LimiterManagers;
+import io.contek.invoker.commons.actor.ratelimit.RateLimitRule;
+import io.contek.invoker.commons.actor.ratelimit.TypedPermitRequest;
 import io.contek.invoker.commons.rest.RestContext;
 import io.contek.invoker.commons.websocket.WebSocketContext;
 import io.contek.invoker.security.ApiKey;
@@ -23,11 +26,11 @@ import javax.annotation.concurrent.ThreadSafe;
 import java.time.Duration;
 import java.util.List;
 
-import static com.google.common.io.BaseEncoding.base16;
 import static io.contek.invoker.binancelinear.api.ApiFactory.RateLimits.*;
 import static io.contek.invoker.commons.actor.ratelimit.LimitType.API_KEY;
 import static io.contek.invoker.commons.actor.ratelimit.LimitType.IP;
 import static io.contek.invoker.security.SecretKeyAlgorithm.HMAC_SHA256;
+import static removing.dependencies.BaseEncoding.base16;
 
 @ThreadSafe
 public final class ApiFactory {
