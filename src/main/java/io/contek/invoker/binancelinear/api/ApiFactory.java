@@ -30,7 +30,7 @@ import static io.contek.invoker.binancelinear.api.ApiFactory.RateLimits.*;
 import static io.contek.invoker.commons.actor.ratelimit.LimitType.API_KEY;
 import static io.contek.invoker.commons.actor.ratelimit.LimitType.IP;
 import static io.contek.invoker.security.SecretKeyAlgorithm.HMAC_SHA256;
-import static removing.dependencies.BaseEncoding.base16;
+import static is.fm.util.BaseEncoding.base16;
 
 @ThreadSafe
 public final class ApiFactory {
