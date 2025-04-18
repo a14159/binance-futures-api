@@ -3,15 +3,12 @@ package io.contek.invoker.binancelinear.api.rest.user;
 import io.contek.invoker.binancelinear.api.rest.common.RestUpdateResponse;
 import io.contek.invoker.binancelinear.api.rest.user.PostPositionSideDual.Response;
 import io.contek.invoker.commons.actor.IActor;
-import io.contek.invoker.commons.actor.ratelimit.TypedPermitRequest;
 import io.contek.invoker.commons.rest.RestContext;
 import io.contek.invoker.commons.rest.RestMethod;
 import io.contek.invoker.commons.rest.RestParams;
 
 import javax.annotation.concurrent.NotThreadSafe;
-import java.util.List;
 
-import static io.contek.invoker.binancelinear.api.ApiFactory.RateLimits.ONE_REST_REQUEST;
 import static io.contek.invoker.commons.rest.RestMethod.POST;
 
 @NotThreadSafe
@@ -50,11 +47,6 @@ public final class PostPositionSideDual extends UserRestRequest<Response> {
     builder.add("timestamp", getMillis());
 
     return builder.build();
-  }
-
-  @Override
-  protected List<TypedPermitRequest> getRequiredQuotas() {
-    return ONE_REST_REQUEST;
   }
 
   @NotThreadSafe

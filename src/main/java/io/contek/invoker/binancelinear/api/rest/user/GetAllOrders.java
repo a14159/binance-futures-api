@@ -3,7 +3,6 @@ package io.contek.invoker.binancelinear.api.rest.user;
 import io.contek.invoker.binancelinear.api.common._Order;
 import io.contek.invoker.binancelinear.api.rest.user.GetAllOrders.Response;
 import io.contek.invoker.commons.actor.IActor;
-import io.contek.invoker.commons.actor.ratelimit.TypedPermitRequest;
 import io.contek.invoker.commons.rest.RestContext;
 import io.contek.invoker.commons.rest.RestMethod;
 import io.contek.invoker.commons.rest.RestParams;
@@ -11,18 +10,14 @@ import io.contek.invoker.commons.rest.RestParams;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
-import static io.contek.invoker.binancelinear.api.ApiFactory.RateLimits.IP_REST_REQUEST_RULE;
 import static io.contek.invoker.commons.rest.RestMethod.GET;
 
 @NotThreadSafe
 public final class GetAllOrders extends UserRestRequest<Response> {
 
   public static final int MAX_LIMIT = 1000;
-  private static final List<TypedPermitRequest> REQUIRED_QUOTA =
-      List.of(IP_REST_REQUEST_RULE.forPermits(5));
 
   private String symbol;
   private Long orderId;
@@ -102,11 +97,6 @@ public final class GetAllOrders extends UserRestRequest<Response> {
     builder.add("timestamp", getMillis());
 
     return builder.build();
-  }
-
-  @Override
-  protected List<TypedPermitRequest> getRequiredQuotas() {
-    return REQUIRED_QUOTA;
   }
 
   @NotThreadSafe

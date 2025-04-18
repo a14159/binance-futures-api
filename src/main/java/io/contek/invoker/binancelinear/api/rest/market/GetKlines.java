@@ -3,17 +3,14 @@ package io.contek.invoker.binancelinear.api.rest.market;
 import io.contek.invoker.binancelinear.api.common._Candlestick;
 import io.contek.invoker.binancelinear.api.rest.market.GetKlines.Response;
 import io.contek.invoker.commons.actor.IActor;
-import io.contek.invoker.commons.actor.ratelimit.TypedPermitRequest;
 import io.contek.invoker.commons.rest.RestContext;
 import io.contek.invoker.commons.rest.RestParams;
 
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
-import static io.contek.invoker.binancelinear.api.ApiFactory.RateLimits.IP_REST_REQUEST_RULE;
 
 /**
  * Default {@code limit} is 500. Time filters are inclusive.
@@ -30,14 +27,6 @@ import static io.contek.invoker.binancelinear.api.ApiFactory.RateLimits.IP_REST_
 public final class GetKlines extends MarketRestRequest<Response> {
 
   public static final int MAX_LIMIT = 1000;
-  private static final List<TypedPermitRequest> REQUIRED_QUOTA_100 =
-      List.of(IP_REST_REQUEST_RULE.forPermits(1));
-  private static final List<TypedPermitRequest> REQUIRED_QUOTA_500 =
-      List.of(IP_REST_REQUEST_RULE.forPermits(2));
-  private static final List<TypedPermitRequest> REQUIRED_QUOTA_1000 =
-      List.of(IP_REST_REQUEST_RULE.forPermits(5));
-  private static final List<TypedPermitRequest> REQUIRED_QUOTA_1500 =
-      List.of(IP_REST_REQUEST_RULE.forPermits(10));
 
   private String symbol;
   private String interval;
@@ -106,24 +95,6 @@ public final class GetKlines extends MarketRestRequest<Response> {
     }
 
     return builder.build();
-  }
-
-  @Override
-  protected List<TypedPermitRequest> getRequiredQuotas() {
-    int limit = this.limit != null ? this.limit : 500;
-    if (limit < 100) {
-      return REQUIRED_QUOTA_100;
-    }
-    if (limit < 500) {
-      return REQUIRED_QUOTA_500;
-    }
-    if (limit < 1000) {
-      return REQUIRED_QUOTA_1000;
-    }
-    if (limit <= 1500) {
-      return REQUIRED_QUOTA_1500;
-    }
-    throw new IllegalArgumentException(Integer.toString(limit));
   }
 
   @NotThreadSafe

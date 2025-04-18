@@ -2,15 +2,11 @@ package io.contek.invoker.binancelinear.api.websocket.user;
 
 import io.contek.invoker.binancelinear.api.rest.user.UserRestApi;
 import io.contek.invoker.commons.actor.IActor;
-import io.contek.invoker.commons.actor.ratelimit.TypedPermitRequest;
 import io.contek.invoker.commons.websocket.*;
 import io.contek.invoker.security.ICredential;
 
 import javax.annotation.concurrent.ThreadSafe;
-import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
-
-import static io.contek.invoker.binancelinear.api.ApiFactory.RateLimits.ONE_WEB_SOCKET_CONNECTION;
 
 @ThreadSafe
 public final class UserWebSocketApi extends BaseWebSocketApi {
@@ -86,11 +82,6 @@ public final class UserWebSocketApi extends BaseWebSocketApi {
     UserWebSocketLiveKeeper liveKeeper = (UserWebSocketLiveKeeper) getLiveKeeper();
     String listenKey = liveKeeper.init();
     return WebSocketCall.fromUrl(context.getBaseUrl() + "/ws/" + listenKey);
-  }
-
-  @Override
-  protected List<TypedPermitRequest> getRequiredQuotas() {
-    return ONE_WEB_SOCKET_CONNECTION;
   }
 
   @Override

@@ -2,22 +2,16 @@ package io.contek.invoker.binancelinear.api.rest.user;
 
 import io.contek.invoker.binancelinear.api.common._MultiAssetMode;
 import io.contek.invoker.commons.actor.IActor;
-import io.contek.invoker.commons.actor.ratelimit.TypedPermitRequest;
 import io.contek.invoker.commons.rest.RestContext;
 import io.contek.invoker.commons.rest.RestMethod;
 import io.contek.invoker.commons.rest.RestParams;
 
 import javax.annotation.concurrent.NotThreadSafe;
-import java.util.List;
 
-import static io.contek.invoker.binancelinear.api.ApiFactory.RateLimits.IP_REST_REQUEST_RULE;
 import static io.contek.invoker.commons.rest.RestMethod.GET;
 
 @NotThreadSafe
 public final class GetMultiAssetsMargin extends UserRestRequest<GetMultiAssetsMargin.Response> {
-
-  private static final List<TypedPermitRequest> REQUIRED_QUOTA =
-      List.of(IP_REST_REQUEST_RULE.forPermits(30));
 
   GetMultiAssetsMargin(IActor actor, RestContext context) {
     super(actor, context);
@@ -45,11 +39,6 @@ public final class GetMultiAssetsMargin extends UserRestRequest<GetMultiAssetsMa
     builder.add("timestamp", getMillis());
 
     return builder.build();
-  }
-
-  @Override
-  protected List<TypedPermitRequest> getRequiredQuotas() {
-    return REQUIRED_QUOTA;
   }
 
   @NotThreadSafe

@@ -3,29 +3,22 @@ package io.contek.invoker.binancelinear.api.rest.market;
 import io.contek.invoker.binancelinear.api.common._OrderBook;
 import io.contek.invoker.binancelinear.api.rest.market.GetDepth.Response;
 import io.contek.invoker.commons.actor.IActor;
-import io.contek.invoker.commons.actor.ratelimit.TypedPermitRequest;
 import io.contek.invoker.commons.rest.RestContext;
 import io.contek.invoker.commons.rest.RestParams;
 
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
-import java.util.*;
+import java.util.Objects;
+import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
-import static io.contek.invoker.binancelinear.api.ApiFactory.RateLimits.IP_REST_REQUEST_RULE;
 
 @NotThreadSafe
 public final class GetDepth extends MarketRestRequest<Response> {
 
   public static final SortedSet<Integer> SUPPORTED_LIMITS =
       new TreeSet<>(Set.of(5, 10, 20, 50, 100, 500, 1000));
-  private static final List<TypedPermitRequest> REQUIRED_QUOTA_50 =
-      List.of(IP_REST_REQUEST_RULE.forPermits(2));
-  private static final List<TypedPermitRequest> REQUIRED_QUOTA_100 =
-      List.of(IP_REST_REQUEST_RULE.forPermits(5));
-  private static final List<TypedPermitRequest> REQUIRED_QUOTA_500 =
-      List.of(IP_REST_REQUEST_RULE.forPermits(10));
-  private static final List<TypedPermitRequest> REQUIRED_QUOTA_1000 =
-      List.of(IP_REST_REQUEST_RULE.forPermits(20));
 
   private String symbol;
   private Integer limit;
@@ -69,24 +62,6 @@ public final class GetDepth extends MarketRestRequest<Response> {
     }
 
     return builder.build();
-  }
-
-  @Override
-  protected List<TypedPermitRequest> getRequiredQuotas() {
-    int limit = this.limit != null ? this.limit : 500;
-    if (limit <= 50) {
-      return REQUIRED_QUOTA_50;
-    }
-    if (limit <= 100) {
-      return REQUIRED_QUOTA_100;
-    }
-    if (limit <= 500) {
-      return REQUIRED_QUOTA_500;
-    }
-    if (limit <= 1000) {
-      return REQUIRED_QUOTA_1000;
-    }
-    throw new IllegalArgumentException(Integer.toString(limit));
   }
 
   @NotThreadSafe

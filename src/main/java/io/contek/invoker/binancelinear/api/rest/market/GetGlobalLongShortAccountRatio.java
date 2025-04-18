@@ -3,17 +3,13 @@ package io.contek.invoker.binancelinear.api.rest.market;
 import io.contek.invoker.binancelinear.api.common._LongShortRatio;
 import io.contek.invoker.binancelinear.api.rest.market.GetGlobalLongShortAccountRatio.Response;
 import io.contek.invoker.commons.actor.IActor;
-import io.contek.invoker.commons.actor.ratelimit.TypedPermitRequest;
 import io.contek.invoker.commons.rest.RestContext;
 import io.contek.invoker.commons.rest.RestParams;
 
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
-
-import static io.contek.invoker.binancelinear.api.ApiFactory.RateLimits.ONE_REST_REQUEST;
 
 @NotThreadSafe
 public final class GetGlobalLongShortAccountRatio extends MarketRestRequest<Response> {
@@ -82,11 +78,6 @@ public final class GetGlobalLongShortAccountRatio extends MarketRestRequest<Resp
     }
 
     return builder.build();
-  }
-
-  @Override
-  protected List<TypedPermitRequest> getRequiredQuotas() {
-    return ONE_REST_REQUEST;
   }
 
   @NotThreadSafe
