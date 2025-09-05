@@ -10,7 +10,6 @@ import io.contek.invoker.commons.rest.RestParams;
 
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
-import java.math.BigDecimal;
 import java.util.Objects;
 
 import static io.contek.invoker.commons.rest.RestMethod.POST;
@@ -23,14 +22,14 @@ public final class PostOrder extends UserRestRequest<Response> {
   private String positionSide;
   private String type;
   private String timeInForce;
-  private BigDecimal quantity;
+  private String quantity;
   private boolean reduceOnly = false;
-  private BigDecimal price;
+  private String price;
   private String newClientOrderId;
-  private BigDecimal stopPrice;
+  private String stopPrice;
   private boolean closePosition = false;
-  private BigDecimal activationPrice;
-  private BigDecimal callbackRate;
+  private String activationPrice;
+  private String callbackRate;
   private String workingType;
   private boolean priceProtect = false;
 
@@ -63,7 +62,7 @@ public final class PostOrder extends UserRestRequest<Response> {
     return this;
   }
 
-  public PostOrder setQuantity(@Nullable BigDecimal quantity) {
+  public PostOrder setQuantity(@Nullable String quantity) {
     this.quantity = quantity;
     return this;
   }
@@ -73,7 +72,7 @@ public final class PostOrder extends UserRestRequest<Response> {
     return this;
   }
 
-  public PostOrder setPrice(@Nullable BigDecimal price) {
+  public PostOrder setPrice(@Nullable String price) {
     this.price = price;
     return this;
   }
@@ -83,7 +82,7 @@ public final class PostOrder extends UserRestRequest<Response> {
     return this;
   }
 
-  public PostOrder setStopPrice(@Nullable BigDecimal stopPrice) {
+  public PostOrder setStopPrice(@Nullable String stopPrice) {
     this.stopPrice = stopPrice;
     return this;
   }
@@ -93,12 +92,12 @@ public final class PostOrder extends UserRestRequest<Response> {
     return this;
   }
 
-  public PostOrder setActivationPrice(@Nullable BigDecimal activationPrice) {
+  public PostOrder setActivationPrice(@Nullable String activationPrice) {
     this.activationPrice = activationPrice;
     return this;
   }
 
-  public PostOrder setCallbackRate(@Nullable BigDecimal callbackRate) {
+  public PostOrder setCallbackRate(@Nullable String callbackRate) {
     this.callbackRate = callbackRate;
     return this;
   }
@@ -142,7 +141,7 @@ public final class PostOrder extends UserRestRequest<Response> {
     builder.add("type", type);
 
     if (quantity != null) {
-      builder.add("quantity", quantity.toPlainString());
+      builder.add("quantity", quantity);
     }
 
     if (reduceOnly) { // default false, cannot be sent in Hedge Mode; cannot be sent with closePosition=true
@@ -150,7 +149,7 @@ public final class PostOrder extends UserRestRequest<Response> {
     }
 
     if (price != null) {
-      builder.add("price", price.toPlainString());
+      builder.add("price", price);
     }
 
     if (positionSide != null) {
@@ -169,7 +168,7 @@ public final class PostOrder extends UserRestRequest<Response> {
     }
 
     if (stopPrice != null) {
-      builder.add("stopPrice", stopPrice.toPlainString());
+      builder.add("stopPrice", stopPrice);
     }
 
     if (closePosition) { // default false, used with STOP_MARKET or TAKE_PROFIT_MARKET
@@ -177,11 +176,11 @@ public final class PostOrder extends UserRestRequest<Response> {
     }
 
     if (activationPrice != null) {
-      builder.add("activationPrice", activationPrice.toPlainString());
+      builder.add("activationPrice", activationPrice);
     }
 
     if (callbackRate != null) {
-      builder.add("callbackRate", callbackRate.toPlainString());
+      builder.add("callbackRate", callbackRate);
     }
 
     if (workingType != null) {

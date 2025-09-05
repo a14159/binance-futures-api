@@ -1,23 +1,22 @@
 package io.contek.invoker.binancelinear.api.common;
 
 import javax.annotation.concurrent.NotThreadSafe;
-import java.math.BigDecimal;
 
 @NotThreadSafe
 public class _AccountAsset {
 
   public String asset;
-  public BigDecimal walletBalance;
-  public BigDecimal unrealizedProfit;
-  public BigDecimal marginBalance;
-  public BigDecimal maintMargin;
-  public BigDecimal initialMargin;
-  public BigDecimal positionInitialMargin;
-  public BigDecimal openOrderInitialMargin;
-  public BigDecimal crossWalletBalance;
-  public BigDecimal crossUnPnl;
-  public BigDecimal availableBalance;
-  public BigDecimal maxWithdrawAmount;
+  public Double walletBalance;
+  public Double unrealizedProfit;
+  public Double marginBalance;
+  public Double maintMargin;
+  public Double initialMargin;
+  public Double positionInitialMargin;
+  public Double openOrderInitialMargin;
+  public Double crossWalletBalance;
+  public Double crossUnPnl;
+  public Double availableBalance;
+  public Double maxWithdrawAmount;
   public boolean marginAvailable;
   public long updateTime;
 }

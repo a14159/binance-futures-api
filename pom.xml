@@ -6,7 +6,7 @@
 
     <groupId>io.contek.invoker</groupId>
     <artifactId>invoker-binancelinear-api</artifactId>
-    <version>3.5.2-head</version>
+    <version>3.5.2-head-doubles</version>
 
     <properties>
         <maven.compiler.source>21</maven.compiler.source>
