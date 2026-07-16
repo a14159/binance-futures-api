@@ -8,11 +8,13 @@ import io.contek.invoker.commons.websocket.WebSocketContext;
 import javax.annotation.concurrent.Immutable;
 import javax.annotation.concurrent.ThreadSafe;
 
+import static io.contek.invoker.binancelinear.api.websocket.common.constants.WebSocketRoutes.MARKET;
+
 @ThreadSafe
 public final class ForceOrderDirectStream extends DirectStream<ForceOrderEvent> {
 
   public ForceOrderDirectStream(Id id, IActor actor, WebSocketContext context) {
-    super(id, actor, context);
+    super(id, actor, context, MARKET);
   }
 
   @Immutable

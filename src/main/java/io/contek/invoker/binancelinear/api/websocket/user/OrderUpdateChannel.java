@@ -68,7 +68,14 @@ public final class OrderUpdateChannel extends UserWebSocketChannel<OrderUpdateCh
     public Boolean cp; // if close all push with conditional order
     public Double AP; // activation price
     public Double cr; // callback rate
+    public Boolean pP; // if price protection is enabled
+    public Long si; // ignore
+    public Long ss; // ignore
     public Double rp; // realized profit
+    public String V; // self trade prevention mode
+    public String pm; // price match mode
+    public Long gtd; // good till date
+    public String er; // expiry reason
     public long traceNano = System.nanoTime();
   }
 }

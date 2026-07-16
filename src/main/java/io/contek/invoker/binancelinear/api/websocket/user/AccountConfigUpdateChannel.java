@@ -35,12 +35,19 @@ public final class AccountConfigUpdateChannel
 
     public Long T; // transaction time
     public AccountConfig ac;
+    public MultiAssetsModeConfig ai;
 
     @NotThreadSafe
     public static class AccountConfig {
 
       public String s; // symbol
       public Integer l; // leverage
+    }
+
+    @NotThreadSafe
+    public static class MultiAssetsModeConfig {
+
+      public Boolean j; // multi-assets margin mode
     }
   }
 }

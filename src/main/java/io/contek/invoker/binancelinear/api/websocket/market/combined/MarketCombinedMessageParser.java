@@ -24,7 +24,7 @@ final class MarketCombinedMessageParser extends WebSocketTextMessageParser {
   @Override
   protected AnyWebSocketMessage fromText(String text) {
     JSONObject json = JSON.parseObject(text);
-    if (json.containsKey("id")) {
+    if (json.containsKey("id") || json.containsKey("code")) {
       return toRequestConfirmation(json);
     }
     if (json.containsKey("stream")) {
@@ -38,21 +38,39 @@ final class MarketCombinedMessageParser extends WebSocketTextMessageParser {
   }
 
   private AnyWebSocketMessage toStreamData(JSONObject obj) {
-    String stream = obj.get("stream").toString();
-    String[] parts = stream.split("@");
-    if (parts.length < 2) {
+    String stream = obj.getString("stream");
+    int typeOffset = stream.indexOf('@') + 1;
+    if (typeOffset == 0 || typeOffset == stream.length()) {
       throw new IllegalArgumentException(stream);
     }
-    String type = parts[1];
-    return switch (type) {
-      case _bookTicker -> obj.toJavaObject(BookTickerChannel.Message.class);
-      case _trade -> obj.toJavaObject(TradeChannel.Message.class);
-      case _aggTrade -> obj.toJavaObject(AggTradeChannel.Message.class);
-      case _depth -> obj.toJavaObject(DepthDiffChannel.Message.class);
-      case _depth5, _depth10, _depth20 -> obj.toJavaObject(DepthPartialChannel.Message.class);
-      case _forceOrder -> obj.toJavaObject(ForceOrderChannel.Message.class);
-      default -> throw new IllegalStateException();
-    };
+    if (hasType(stream, typeOffset, _bookTicker)) {
+      return obj.toJavaObject(BookTickerChannel.Message.class);
+    }
+    if (hasType(stream, typeOffset, _trade)) {
+      return obj.toJavaObject(TradeChannel.Message.class);
+    }
+    if (hasType(stream, typeOffset, _aggTrade)) {
+      return obj.toJavaObject(AggTradeChannel.Message.class);
+    }
+    if (hasType(stream, typeOffset, _depth)) {
+      return obj.toJavaObject(DepthDiffChannel.Message.class);
+    }
+    if (hasType(stream, typeOffset, _depth5)
+        || hasType(stream, typeOffset, _depth10)
+        || hasType(stream, typeOffset, _depth20)) {
+      return obj.toJavaObject(DepthPartialChannel.Message.class);
+    }
+    if (hasType(stream, typeOffset, _forceOrder)) {
+      return obj.toJavaObject(ForceOrderChannel.Message.class);
+    }
+    throw new IllegalStateException(stream);
+  }
+
+  private static boolean hasType(String stream, int typeOffset, String type) {
+    int typeEnd = typeOffset + type.length();
+    return typeEnd <= stream.length()
+        && stream.regionMatches(typeOffset, type, 0, type.length())
+        && (typeEnd == stream.length() || stream.charAt(typeEnd) == '@');
   }
 
   private AnyWebSocketMessage toBookTicker(JSONObject obj) {

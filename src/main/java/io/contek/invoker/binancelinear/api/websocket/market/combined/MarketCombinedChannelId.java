@@ -8,8 +8,15 @@ import javax.annotation.concurrent.Immutable;
 abstract class MarketCombinedChannelId<Message extends WebSocketStreamMessage<?>>
     extends BaseWebSocketChannelId<Message> {
 
+  private final String[] requestParams;
+
   protected MarketCombinedChannelId(String streamName) {
     super(streamName);
+    requestParams = new String[] {streamName};
+  }
+
+  final String[] getRequestParams() {
+    return requestParams;
   }
 
   @Override

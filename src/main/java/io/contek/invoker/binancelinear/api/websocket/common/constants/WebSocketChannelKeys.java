@@ -2,6 +2,7 @@ package io.contek.invoker.binancelinear.api.websocket.common.constants;
 
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
+import java.util.Locale;
 
 import static java.lang.String.format;
 
@@ -58,6 +59,7 @@ public final class WebSocketChannelKeys {
   }
 
   public static String channel(String symbol, String topic, @Nullable String interval) {
+    symbol = symbol.toLowerCase(Locale.ROOT);
     if (interval != null) {
       return symbol + "@" + topic + "@" + interval;
     }

@@ -8,4 +8,8 @@ import javax.annotation.concurrent.NotThreadSafe;
 final class WebSocketCommandConfirmation extends AnyWebSocketMessage {
 
   public Integer id;
+
+  public Integer code;
+
+  public String msg;
 }

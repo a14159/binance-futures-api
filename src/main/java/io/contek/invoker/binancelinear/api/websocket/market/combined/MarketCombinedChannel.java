@@ -9,7 +9,6 @@ import io.contek.invoker.commons.websocket.WebSocketSession;
 
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.ThreadSafe;
-import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
 import static io.contek.invoker.binancelinear.api.websocket.common.constants.WebSocketMethods.SUBSCRIBE;
@@ -46,7 +45,7 @@ abstract class MarketCombinedChannel<
       MarketCombinedChannelId<Message> id = getId();
       WebSocketCommand command = new WebSocketCommand();
       command.method = SUBSCRIBE;
-      command.params = List.of(id.getValue());
+      command.params = id.getRequestParams();
       command.id = requestIdGenerator.getNextRequestId();
       session.send(command);
       pendingCommandHolder.set(command);
@@ -64,7 +63,7 @@ abstract class MarketCombinedChannel<
       MarketCombinedChannelId<Message> id = getId();
       WebSocketCommand command = new WebSocketCommand();
       command.method = UNSUBSCRIBE;
-      command.params = List.of(id.getValue());
+      command.params = id.getRequestParams();
       command.id = requestIdGenerator.getNextRequestId();
       session.send(command);
       pendingCommandHolder.set(command);

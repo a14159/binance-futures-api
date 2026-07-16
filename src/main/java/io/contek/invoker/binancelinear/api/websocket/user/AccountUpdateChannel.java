@@ -60,6 +60,7 @@ public final class AccountUpdateChannel extends UserWebSocketChannel<AccountUpda
     public String s; // symbol
     public Double pa; // position amount
     public Double ep; // entry price
+    public Double bep; // breakeven price
     public Double cr; // pre-fee accumulated realized
     public Double up; // unrealized PnL
     public String mt; // margin type

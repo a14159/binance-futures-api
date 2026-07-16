@@ -8,6 +8,8 @@ import io.contek.invoker.security.ICredential;
 import javax.annotation.concurrent.ThreadSafe;
 import java.util.concurrent.atomic.AtomicReference;
 
+import static io.contek.invoker.binancelinear.api.websocket.common.constants.WebSocketRoutes.PRIVATE;
+
 @ThreadSafe
 public final class UserWebSocketApi extends BaseWebSocketApi {
 
@@ -65,7 +67,7 @@ public final class UserWebSocketApi extends BaseWebSocketApi {
     }
   }
 
-  public AccountConfigUpdateChannel getLeverageUpdateChannel() {
+  public AccountConfigUpdateChannel getAccountConfigUpdateChannel() {
     synchronized (accountConfigUpdateChannel) {
       AccountConfigUpdateChannel channel = accountConfigUpdateChannel.get();
       if (channel == null) {
@@ -81,7 +83,7 @@ public final class UserWebSocketApi extends BaseWebSocketApi {
   protected WebSocketCall createCall(ICredential credential) {
     UserWebSocketLiveKeeper liveKeeper = (UserWebSocketLiveKeeper) getLiveKeeper();
     String listenKey = liveKeeper.init();
-    return WebSocketCall.fromUrl(context.getBaseUrl() + "/ws/" + listenKey);
+    return WebSocketCall.fromUrl(context.getBaseUrl() + PRIVATE + "/ws/" + listenKey);
   }
 
   @Override

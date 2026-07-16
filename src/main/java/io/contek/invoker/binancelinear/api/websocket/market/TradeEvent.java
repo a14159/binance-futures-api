@@ -12,6 +12,7 @@ public class TradeEvent extends WebSocketEventData {
   public Double p; // Price
   public Double q; // Quantity
   public Long T; // Trade time
+  public String X; // Trade type
   public Boolean m; // Is the buyer the market maker?
   public long traceNano = System.nanoTime();
 }

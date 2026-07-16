@@ -31,18 +31,25 @@ public final class UserWebSocketParser extends WebSocketTextMessageParser {
   }
 
   private WebSocketEventData toUserData(JSONObject obj) {
-    String eventType = obj.get("e").toString();
+    String eventType = obj.getString("e");
     return switch (eventType) {
       case UserEventTypeKeys._ACCOUNT_UPDATE -> obj.toJavaObject(AccountUpdateChannel.Data.class);
       case UserEventTypeKeys._ORDER_TRADE_UPDATE -> obj.toJavaObject(OrderUpdateChannel.Data.class);
       case UserEventTypeKeys._ACCOUNT_CONFIG_UPDATE -> obj.toJavaObject(AccountConfigUpdateChannel.Data.class);
       case UserEventTypeKeys._MARGIN_CALL -> obj.toJavaObject(MarginCallChannel.Data.class);
       case UserEventTypeKeys._listenKeyExpired -> obj.toJavaObject(UserDataStreamExpiredEvent.class);
-      default -> throw new IllegalStateException("Unrecognized event type: " + eventType);
+      default -> IgnoredEvent.INSTANCE;
     };
   }
 
   private UserWebSocketParser() {}
+
+  private static final class IgnoredEvent extends WebSocketEventData {
+
+    private static final IgnoredEvent INSTANCE = new IgnoredEvent();
+
+    private IgnoredEvent() {}
+  }
 
   @Immutable
   private static class InstanceHolder {

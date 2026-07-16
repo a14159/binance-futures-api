@@ -14,11 +14,16 @@ abstract class DirectStream<Data extends WebSocketEventData> extends BaseWebSock
 
   private final MarketWebSocketDirectChannelId<Data> id;
   private final WebSocketContext context;
+  private final String route;
   private final MarketWebSocketDirectChannel<Data> channel;
 
   private final AtomicBoolean attached = new AtomicBoolean(false);
 
-  DirectStream(MarketWebSocketDirectChannelId<Data> id, IActor actor, WebSocketContext context) {
+  DirectStream(
+      MarketWebSocketDirectChannelId<Data> id,
+      IActor actor,
+      WebSocketContext context,
+      String route) {
     super(
         actor,
         new DirectStreamMessageParser<>(id.getType()),
@@ -26,12 +31,13 @@ abstract class DirectStream<Data extends WebSocketEventData> extends BaseWebSock
         IWebSocketLiveKeeper.noOp());
     this.id = id;
     this.context = context;
+    this.route = route;
     channel = new MarketWebSocketDirectChannel<>(id);
   }
 
   @Override
   protected WebSocketCall createCall(ICredential credential) {
-    return WebSocketCall.fromUrl(context.getBaseUrl() + "/ws/" + id.getValue());
+    return WebSocketCall.fromUrl(context.getBaseUrl() + route + "/ws/" + id.getValue());
   }
 
   @Override

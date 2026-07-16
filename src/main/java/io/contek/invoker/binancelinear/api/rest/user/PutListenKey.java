@@ -14,14 +14,17 @@ import static io.contek.invoker.commons.rest.RestMethod.PUT;
 @NotThreadSafe
 public final class PutListenKey extends UserRestRequest<Response> {
 
-  private String listenKey;
-
   PutListenKey(IActor actor, RestContext context) {
     super(actor, context);
   }
 
+  /**
+   * @deprecated USD-M Futures keepalive applies to the account's active listen key and no longer
+   *     accepts a listenKey parameter.
+   */
+  @Deprecated
   public PutListenKey setListenKey(String listenKey) {
-    this.listenKey = listenKey;
+    Objects.requireNonNull(listenKey);
     return this;
   }
 
@@ -42,14 +45,12 @@ public final class PutListenKey extends UserRestRequest<Response> {
 
   @Override
   protected RestParams getParams() {
-    RestParams.Builder builder = RestParams.newBuilder();
-
-    Objects.requireNonNull(listenKey);
-    builder.add("listenKey", listenKey);
-
-    return builder.build();
+    return RestParams.empty();
   }
 
   @NotThreadSafe
-  public static final class Response {}
+  public static final class Response {
+
+    public String listenKey;
+  }
 }

@@ -11,6 +11,7 @@ public class AggTradeEvent extends WebSocketEventData {
   public long a; // Aggregate trade ID
   public Double p; // Price
   public Double q; // Quantity
+  public Double nq; // Non-RPI quantity
   public long f; // First trade ID
   public long l; // Last trade ID
   public long T; // Trade time

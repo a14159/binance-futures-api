@@ -11,12 +11,15 @@ import javax.annotation.concurrent.ThreadSafe;
 import java.util.HashMap;
 import java.util.Map;
 
+import static io.contek.invoker.binancelinear.api.websocket.common.constants.WebSocketRoutes.MARKET;
+import static io.contek.invoker.binancelinear.api.websocket.common.constants.WebSocketRoutes.PUBLIC;
 
 @ThreadSafe
 public final class MarketCombinedWebSocketApi extends BaseWebSocketApi
     implements IMarketWebSocketApi {
 
   private final WebSocketContext context;
+  private final MarketCombinedEndpoint publicEndpoint;
   private final WebSocketRequestIdGenerator requestIdGenerator = new WebSocketRequestIdGenerator();
 
   private final Map<BookTickerChannel.Id, BookTickerChannel> bookTickerChannels = new HashMap<>();
@@ -34,6 +37,7 @@ public final class MarketCombinedWebSocketApi extends BaseWebSocketApi
         IWebSocketAuthenticator.noOp(),
         IWebSocketLiveKeeper.noOp());
     this.context = context;
+    publicEndpoint = new MarketCombinedEndpoint(actor, context, PUBLIC);
   }
 
   @Override
@@ -43,7 +47,7 @@ public final class MarketCombinedWebSocketApi extends BaseWebSocketApi
           BookTickerChannel.Id.of(symbol),
           k -> {
             BookTickerChannel result = new BookTickerChannel(k, requestIdGenerator);
-            attach(result);
+            publicEndpoint.attach(result);
             return result;
           });
     }
@@ -56,7 +60,7 @@ public final class MarketCombinedWebSocketApi extends BaseWebSocketApi
           TradeChannel.Id.of(symbol),
           k -> {
             TradeChannel result = new TradeChannel(k, requestIdGenerator);
-            attach(result);
+            publicEndpoint.attach(result);
             return result;
           });
     }
@@ -82,7 +86,7 @@ public final class MarketCombinedWebSocketApi extends BaseWebSocketApi
           DepthDiffChannel.Id.of(symbol, interval),
           k -> {
             DepthDiffChannel result = new DepthDiffChannel(k, requestIdGenerator);
-            attach(result);
+            publicEndpoint.attach(result);
             return result;
           });
     }
@@ -96,7 +100,7 @@ public final class MarketCombinedWebSocketApi extends BaseWebSocketApi
           DepthPartialChannel.Id.of(symbol, levels, interval),
           k -> {
             DepthPartialChannel result = new DepthPartialChannel(k, requestIdGenerator);
-            attach(result);
+            publicEndpoint.attach(result);
             return result;
           });
     }
@@ -117,9 +121,18 @@ public final class MarketCombinedWebSocketApi extends BaseWebSocketApi
 
   @Override
   protected WebSocketCall createCall(ICredential credential) {
-    return WebSocketCall.fromUrl(context.getBaseUrl() + "/stream");
+    return WebSocketCall.fromUrl(context.getBaseUrl() + MARKET + "/stream");
   }
 
   @Override
-  protected void checkErrorMessage(AnyWebSocketMessage message) throws WebSocketRuntimeException {}
+  protected void checkErrorMessage(AnyWebSocketMessage message) throws WebSocketRuntimeException {
+    checkError(message);
+  }
+
+  static void checkError(AnyWebSocketMessage message) throws WebSocketRuntimeException {
+    if (message instanceof WebSocketCommandConfirmation response && response.code != null) {
+      throw new WebSocketIllegalMessageException(
+          "Binance WebSocket error " + response.code + ": " + response.msg);
+    }
+  }
 }

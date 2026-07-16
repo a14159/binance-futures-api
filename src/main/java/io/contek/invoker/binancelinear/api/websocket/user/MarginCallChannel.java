@@ -33,7 +33,7 @@ public final class MarginCallChannel extends UserWebSocketChannel<MarginCallChan
   @NotThreadSafe
   public static final class Data extends WebSocketEventData {
 
-    public Double cw; // transaction time
+    public Double cw; // cross wallet balance
     public List<PositionForMarginCall> p;
 
     @NotThreadSafe
@@ -41,8 +41,9 @@ public final class MarginCallChannel extends UserWebSocketChannel<MarginCallChan
 
       public String s; // symbol
       public String ps; // position side
+      public Double pa; // position amount
       public String mt; // margin type
-      public Long iw; // isolated wallet
+      public Double iw; // isolated wallet
       public Double mp; // mark price
       public Double up; // unrealized PnL
       public Double mm; // maintenance margin required

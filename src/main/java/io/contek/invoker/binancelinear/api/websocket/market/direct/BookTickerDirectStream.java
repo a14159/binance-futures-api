@@ -8,11 +8,13 @@ import io.contek.invoker.commons.websocket.WebSocketContext;
 import javax.annotation.concurrent.Immutable;
 import javax.annotation.concurrent.ThreadSafe;
 
+import static io.contek.invoker.binancelinear.api.websocket.common.constants.WebSocketRoutes.PUBLIC;
+
 @ThreadSafe
 public final class BookTickerDirectStream extends DirectStream<BookTickerEvent> {
 
   public BookTickerDirectStream(Id id, IActor actor, WebSocketContext context) {
-    super(id, actor, context);
+    super(id, actor, context, PUBLIC);
   }
 
   @Immutable
